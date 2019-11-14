@@ -1,0 +1,10 @@
+.ipynb_checkpoints
+.vscode
+.Rhistory
+
+# copyright
+*.csv
+refs
+
+# containing student id
+*2017-*
