@@ -2,6 +2,7 @@
 .vscode
 .Rhistory
 .DS_Store
+*.code-workspace
 
 # copyright
 *.csv
@@ -9,3 +10,9 @@ refs
 
 # containing student id
 *2017-*
+
+# KorBERT
+KorBERT_NSMC/data
+KorBERT_NSMC/bert_eojeol_pytorch
+KorBERT_NSMC/model
+KorBERT_NSMC/aisolab

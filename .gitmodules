@@ -1,3 +1,6 @@
 [submodule "StudiesInComputationalLinguistics1"]
 	path = StudiesInComputationalLinguistics1
 	url = https://github.com/hpshin/StudiesInComputationalLinguistics1.git
+[submodule "KoBERT_NSMC/nlp_implementation"]
+	path = KoBERT_NSMC/nlp_implementation
+	url = https://github.com/aisolab/nlp_implementation.git
