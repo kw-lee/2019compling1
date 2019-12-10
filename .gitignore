@@ -14,5 +14,5 @@ refs
 # KorBERT
 KorBERT_NSMC/data
 KorBERT_NSMC/bert_eojeol_pytorch
-KorBERT_NSMC/model
+KorBERT_NSMC/model/best_etri.tar
 KorBERT_NSMC/aisolab

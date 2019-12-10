@@ -13085,6 +13085,18 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Environments">Environments<a class="anchor-link" href="#Environments">&#182;</a></h2><ul>
+<li>OS: Ubuntu 16.04.5 LTS x86_64</li>
+<li>CPU: Intel Xeon Silver 4110 (32) @ 2.095GHz</li>
+<li>GPU: Nvidia TITAN Xp (use only 1 GPU)</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="References">References<a class="anchor-link" href="#References">&#182;</a></h2><ul>
 <li>aisolab: <a href="https://github.com/aisolab/nlp_implementation">https://github.com/aisolab/nlp_implementation</a></li>
 <li><a href="http://aiopen.etri.re.kr/service_dataset.php">KorBERT_WordPiece</a> from ETRI<ul>
@@ -13889,6 +13901,34 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Remark">Remark<a class="anchor-link" href="#Remark">&#182;</a></h3><table>
+<thead><tr>
+<th>Model</th>
+<th>Accuracy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/google-research/bert/blob/master/multilingual.md">BERT base multilingual cased</a></td>
+<td>0.875</td>
+</tr>
+<tr>
+<td><a href="https://github.com/SKTBrain/KoBERT">KoBERT (SKT)</a></td>
+<td><strong>0.901</strong></td>
+</tr>
+<tr>
+<td>KorBERT_NSMC (ETRI)</td>
+<td>0.899</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Real-Data---Clementine,-2004">Real Data - Clementine, 2004<a class="anchor-link" href="#Real-Data---Clementine,-2004">&#182;</a></h3>
 </div>
 </div>
@@ -13906,17 +13946,17 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[15]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">example_input</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="n">preprocessor</span><span class="o">.</span><span class="n">preprocess</span><span class="p">(</span><span class="s1">&#39;모니터도 울고 외장하드도 울고 숨어있던 바이러스도 울었다&#39;</span><span class="p">),</span> 
-    <span class="n">preprocessor</span><span class="o">.</span><span class="n">preprocess</span><span class="p">(</span><span class="s1">&#39;당신이 이 영화를 보지 않았다면 아직 살아있을 이유 하나를 간직하고 있는 것이다&#39;</span><span class="p">),</span> 
-    <span class="n">preprocessor</span><span class="o">.</span><span class="n">preprocess</span><span class="p">(</span><span class="s1">&#39;신은 인간을 만들었고, 인간은 클레멘타인을 만들었다&#39;</span><span class="p">),</span>
-    <span class="n">preprocessor</span><span class="o">.</span><span class="n">preprocess</span><span class="p">(</span><span class="s1">&#39;사상최악의 영화! 빵점줄수없는게 아쉽다.. 보다가 돌렸다 그냥 어휴 눈썩어&#39;</span><span class="p">),</span>
-    <span class="n">preprocessor</span><span class="o">.</span><span class="n">preprocess</span><span class="p">(</span><span class="s1">&#39;죽여버려 ...재밋다해서 봤는데 붇여버려 썸녀랑 사이 어색해졌다&#39;</span><span class="p">),</span>
-    <span class="n">preprocessor</span><span class="o">.</span><span class="n">preprocess</span><span class="p">(</span><span class="s1">&#39;추천해준 친구놈의 목을따러 가야겠습니다&#39;</span><span class="p">)</span>  
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">example</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;모니터도 울고 외장하드도 울고 숨어있던 바이러스도 울었다&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;당신이 이 영화를 보지 않았다면 아직 살아있을 이유 하나를 간직하고 있는 것이다&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;신은 인간을 만들었고, 인간은 클레멘타인을 만들었다&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;사상최악의 영화! 빵점줄수없는게 아쉽다.. 보다가 돌렸다 그냥 어휴 눈썩어&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;죽여버려 ...재밋다해서 봤는데 붇여버려 썸녀랑 사이 어색해졌다&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;추천해준 친구놈의 목을따러 가야겠습니다&#39;</span>
 <span class="p">]</span>
 
-
 <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+    <span class="n">example_input</span> <span class="o">=</span> <span class="p">[</span><span class="n">preprocessor</span><span class="o">.</span><span class="n">preprocess</span><span class="p">(</span><span class="n">seq</span><span class="p">)</span> <span class="k">for</span> <span class="n">seq</span> <span class="ow">in</span> <span class="n">example</span><span class="p">]</span>
     <span class="n">example_out</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">example_input</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">))</span>
     <span class="n">example_pred</span> <span class="o">=</span> <span class="n">example_out</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">dim</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
     
