@@ -13167,7 +13167,7 @@ div#notebook {
 <span class="kn">from</span> <span class="nn">transformers.modeling_bert</span> <span class="k">import</span> <span class="n">BertConfig</span><span class="p">,</span> <span class="n">BertPreTrainedModel</span><span class="p">,</span> <span class="n">BertModel</span>
 <span class="kn">from</span> <span class="nn">tqdm.auto</span> <span class="k">import</span> <span class="n">tqdm</span>
 <span class="kn">from</span> <span class="nn">tqdm</span> <span class="k">import</span> <span class="n">tqdm_notebook</span>
-<span class="kn">from</span> <span class="nn">torch.utils.tensorboard</span> <span class="k">import</span> <span class="n">SummaryWriter</span>
+<span class="c1"># from torch.utils.tensorboard import SummaryWriter</span>
 <span class="kn">import</span> <span class="nn">json</span>
 
 <span class="kn">import</span> <span class="nn">bert_eojeol_pytorch.src_tokenizer.tokenization</span> <span class="k">as</span> <span class="nn">tokenization</span>
@@ -13583,8 +13583,9 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[13]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="n">preprocessor</span><span class="o">.</span><span class="n">preprocess</span><span class="p">(</span><span class="s1">&#39;신은 인간을 만들었고, 인간은 클레멘타인을 만들었다&#39;</span><span class="p">),</span> 
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">preprocess_test</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="n">preprocessor</span><span class="o">.</span><span class="n">preprocess</span><span class="p">(</span><span class="s1">&#39;신은 인간을 만들었고, 인간은 클레멘타인을 만들었다&#39;</span><span class="p">),</span> 
               <span class="n">preprocessor</span><span class="o">.</span><span class="n">preprocess</span><span class="p">(</span><span class="s1">&#39;사상최악의 영화! 빵점줄수없는게 아쉽다.. 보다가 돌렸다 그냥 어휴 눈썩어&#39;</span><span class="p">)])</span>
+<span class="n">preprocess_test</span>
 </pre></div>
 
     </div>
@@ -13958,7 +13959,7 @@ div#notebook {
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s1">&#39;cuda&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s1">&#39;cpu&#39;</span><span class="p">)</span>
 <span class="n">model</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
 
-<span class="n">writer</span> <span class="o">=</span> <span class="n">SummaryWriter</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">/runs_</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">model_dir</span><span class="p">,</span> <span class="s1">&#39;ETRI&#39;</span><span class="p">))</span>
+<span class="c1"># writer = SummaryWriter(&#39;{}/runs_{}&#39;.format(model_dir, &#39;ETRI&#39;))</span>
 <span class="n">checkpoint_manager</span> <span class="o">=</span> <span class="n">CheckpointManager</span><span class="p">(</span><span class="n">model_dir</span><span class="p">)</span>
 <span class="n">summary_manager</span> <span class="o">=</span> <span class="n">SummaryManager</span><span class="p">(</span><span class="n">model_dir</span><span class="p">)</span>
 <span class="n">best_val_loss</span> <span class="o">=</span> <span class="mf">1e+10</span>
@@ -13994,14 +13995,14 @@ div#notebook {
         <span class="n">tr_loss</span> <span class="o">+=</span> <span class="n">mb_loss</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
         <span class="n">tr_acc</span> <span class="o">+=</span> <span class="n">mb_acc</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
         
-        <span class="n">writer</span><span class="o">.</span><span class="n">add_scalars</span><span class="p">(</span><span class="s1">&#39;train&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;loss&#39;</span><span class="p">:</span> <span class="n">tr_loss</span> <span class="o">/</span> <span class="p">(</span><span class="n">step</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span>
-                            <span class="s1">&#39;acc&#39;</span><span class="p">:</span> <span class="n">tr_acc</span> <span class="o">/</span> <span class="p">(</span><span class="n">step</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)},</span> <span class="n">epoch</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">tr_dl</span><span class="p">)</span> <span class="o">+</span> <span class="n">step</span><span class="p">)</span>
+<span class="c1">#         writer.add_scalars(&#39;train&#39;, {&#39;loss&#39;: tr_loss / (step + 1),</span>
+<span class="c1">#                             &#39;acc&#39;: tr_acc / (step + 1)}, epoch * len(tr_dl) + step)</span>
 
         <span class="k">if</span> <span class="p">(</span><span class="n">epoch</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">tr_dl</span><span class="p">)</span> <span class="o">+</span> <span class="n">step</span><span class="p">)</span> <span class="o">%</span> <span class="n">model_config</span><span class="o">.</span><span class="n">summary_step</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">tr_summary</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;loss&#39;</span><span class="p">:</span> <span class="n">tr_loss</span> <span class="o">/</span> <span class="p">(</span><span class="n">step</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="s1">&#39;acc&#39;</span><span class="p">:</span> <span class="n">tr_acc</span> <span class="o">/</span> <span class="p">(</span><span class="n">step</span><span class="o">+</span><span class="mi">1</span><span class="p">)}</span>
             <span class="n">val_summary</span> <span class="o">=</span> <span class="n">evaluate</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">val_dl</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;loss&#39;</span><span class="p">:</span> <span class="n">loss_fn</span><span class="p">,</span> <span class="s1">&#39;acc&#39;</span><span class="p">:</span> <span class="n">acc</span><span class="p">},</span> <span class="n">device</span><span class="p">)</span>
-            <span class="n">writer</span><span class="o">.</span><span class="n">add_scalars</span><span class="p">(</span><span class="s1">&#39;val&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;loss&#39;</span><span class="p">:</span> <span class="n">val_summary</span><span class="p">[</span><span class="s1">&#39;loss&#39;</span><span class="p">],</span>
-                                        <span class="s1">&#39;acc&#39;</span><span class="p">:</span> <span class="n">val_summary</span><span class="p">[</span><span class="s1">&#39;acc&#39;</span><span class="p">]},</span> <span class="n">epoch</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">tr_dl</span><span class="p">)</span> <span class="o">+</span> <span class="n">step</span><span class="p">)</span>
+<span class="c1">#             writer.add_scalars(&#39;val&#39;, {&#39;loss&#39;: val_summary[&#39;loss&#39;],</span>
+<span class="c1">#                                         &#39;acc&#39;: val_summary[&#39;acc&#39;]}, epoch * len(tr_dl) + step)</span>
             <span class="n">tqdm</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;global_step: </span><span class="si">{:3}</span><span class="s1">, tr_loss: </span><span class="si">{:.3f}</span><span class="s1">, val_loss: </span><span class="si">{:.3f}</span><span class="s1">, &#39;</span>
                        <span class="s1">&#39;tr_acc: </span><span class="si">{:.3f}</span><span class="s1">, val_acc: </span><span class="si">{:.3f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">epoch</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">tr_dl</span><span class="p">)</span> <span class="o">+</span> <span class="n">step</span><span class="p">,</span>
                                                                 <span class="n">tr_summary</span><span class="p">[</span><span class="s1">&#39;loss&#39;</span><span class="p">],</span> <span class="n">val_summary</span><span class="p">[</span><span class="s1">&#39;loss&#39;</span><span class="p">],</span>
@@ -14041,10 +14042,10 @@ div#notebook {
 
  
  
-<div id="35a4e0a1-3f76-481a-bff2-4f239ea94993"></div>
+<div id="189dbda9-7451-456f-a09f-e26ff7be3dd2"></div>
 <div class="output_subarea output_widget_view ">
 <script type="text/javascript">
-var element = $('#35a4e0a1-3f76-481a-bff2-4f239ea94993');
+var element = $('#189dbda9-7451-456f-a09f-e26ff7be3dd2');
 </script>
 <script type="application/vnd.jupyter.widget-view+json">
 {"model_id": "3e1eac275c334d5b8b0bef71886f5040", "version_major": 2, "version_minor": 0}
@@ -14063,10 +14064,10 @@ var element = $('#35a4e0a1-3f76-481a-bff2-4f239ea94993');
 
  
  
-<div id="fc275e67-ccdb-4ca0-bc20-d762de525c9a"></div>
+<div id="eafc6be7-1f3d-4707-8804-19ca8f842085"></div>
 <div class="output_subarea output_widget_view ">
 <script type="text/javascript">
-var element = $('#fc275e67-ccdb-4ca0-bc20-d762de525c9a');
+var element = $('#eafc6be7-1f3d-4707-8804-19ca8f842085');
 </script>
 <script type="application/vnd.jupyter.widget-view+json">
 {"model_id": "c6322c8bc32549879f2b86e8de4a7f1b", "version_major": 2, "version_minor": 0}
@@ -14130,10 +14131,10 @@ var element = $('#fc275e67-ccdb-4ca0-bc20-d762de525c9a');
 
  
  
-<div id="d18a98c2-0299-4585-b910-6da76f68536d"></div>
+<div id="d423f5cc-1d66-4ab8-a7b2-0cc74d908289"></div>
 <div class="output_subarea output_widget_view ">
 <script type="text/javascript">
-var element = $('#d18a98c2-0299-4585-b910-6da76f68536d');
+var element = $('#d423f5cc-1d66-4ab8-a7b2-0cc74d908289');
 </script>
 <script type="application/vnd.jupyter.widget-view+json">
 {"model_id": "00d49da3652c4cabac1d7dbef59b58f9", "version_major": 2, "version_minor": 0}
@@ -14197,10 +14198,10 @@ var element = $('#d18a98c2-0299-4585-b910-6da76f68536d');
 
  
  
-<div id="cfe1dde2-61e6-4f86-b895-50fcabfc34b6"></div>
+<div id="5fce2795-8bb7-46ea-9185-c13c8a88ac3f"></div>
 <div class="output_subarea output_widget_view ">
 <script type="text/javascript">
-var element = $('#cfe1dde2-61e6-4f86-b895-50fcabfc34b6');
+var element = $('#5fce2795-8bb7-46ea-9185-c13c8a88ac3f');
 </script>
 <script type="application/vnd.jupyter.widget-view+json">
 {"model_id": "5f60f8e662b04fb69837eab75c0c4ff3", "version_major": 2, "version_minor": 0}
@@ -14264,10 +14265,10 @@ var element = $('#cfe1dde2-61e6-4f86-b895-50fcabfc34b6');
 
  
  
-<div id="419e255d-79ed-4b3c-91de-007e9ceaf4be"></div>
+<div id="9df2253c-3140-445f-ae8b-d9a40719d8db"></div>
 <div class="output_subarea output_widget_view ">
 <script type="text/javascript">
-var element = $('#419e255d-79ed-4b3c-91de-007e9ceaf4be');
+var element = $('#9df2253c-3140-445f-ae8b-d9a40719d8db');
 </script>
 <script type="application/vnd.jupyter.widget-view+json">
 {"model_id": "cab8e3918e5645859deb26d3e68e2a5f", "version_major": 2, "version_minor": 0}
@@ -14331,10 +14332,10 @@ var element = $('#419e255d-79ed-4b3c-91de-007e9ceaf4be');
 
  
  
-<div id="cb23c57e-5b0b-4da5-808c-2547637e0b5a"></div>
+<div id="0ca49883-71fe-4325-b8fd-27c70023363e"></div>
 <div class="output_subarea output_widget_view ">
 <script type="text/javascript">
-var element = $('#cb23c57e-5b0b-4da5-808c-2547637e0b5a');
+var element = $('#0ca49883-71fe-4325-b8fd-27c70023363e');
 </script>
 <script type="application/vnd.jupyter.widget-view+json">
 {"model_id": "148f570b07e34779a5d2531424b4304f", "version_major": 2, "version_minor": 0}
